@@ -21,9 +21,10 @@ logging.basicConfig(
 
 async def on_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """on `/start`, it displays buttons for both weather and counter features."""
+
     keyboard = [
         [InlineKeyboardButton("⛅ Check weather", callback_data="weather")],
-        [InlineKeyboardButton("🔢 Count +1", callback_data="count1")],
+        [InlineKeyboardButton("🔢 Count", callback_data="count")],
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -34,35 +35,44 @@ counter = {}
 
 
 async def on_button(update, context):
+    """Reacts to button presses,
+    sets an appropiate `state` depending on the pressed button,
+    and displays a status message"""
+
     query = update.callback_query
-    user_id = query.from_user.id
     await query.answer()
     if query.data == "weather":
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
             text="What city are you in?",
         )
-        context.user_data["awaiting_location"] = True
-    elif query.data == "count1":
+        context.user_data["state"] = "awaiting location"
+    elif query.data == "count":
+        context.user_data["state"] = "counting"
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id, text="Counting..."
+        )
+
+
+async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if "state" not in context.user_data:
+        return
+
+    state = context.user_data["state"]
+    if state == "awaiting location":
+        city_name = update.message.text
+        weather_text = get_weather(city_name)
+        await update.message.reply_text(weather_text)
+    elif state == "counting":
+        user_id = update.message.from_user.id
         if user_id in counter:
             counter[user_id] += 1
         else:
             counter[user_id] = 1
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text=f"count increased to {counter[user_id]}",
+            text=f"Count increased to {counter[user_id]}",
         )
-
-
-async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    expects_location = (
-        "awaiting_location" in context.user_data
-        and context.user_data["awaiting_location"]
-    )
-    if expects_location:
-        city_name = update.message.text
-        data = get_weather(city_name)
-        await update.message.reply_text(data)
 
 
 def main() -> None:
