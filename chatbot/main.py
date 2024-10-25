@@ -63,11 +63,6 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         city_name = update.message.text
         data = get_weather(city_name)
         await update.message.reply_text(data)
-        # await update.message.reply_text(
-        #     f"There's {data["weather"][0]["description"]} in {data["name"]}.\n"
-        #     f"Temperature is {data["main"]["temp"]}ºC.\n"
-        #     f"Wind speed is {data["wind"]["speed"]}m/s, and humidity is {data["main"]["humidity"]}%"
-        # )
 
 
 def main() -> None:
