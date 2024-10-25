@@ -1,0 +1,10 @@
+# Weather & Counter Telegram bot
+
+## How to run
+
+1. Ensure Python 3.12+ is installed.
+2. Ensure [poetry](https://python-poetry.org/docs/#installation) is installed.
+3. Run `poetry install` to install dependencies.
+4. Populate `OPENAI_API_KEY`, `BOT_KEY` and `WEATHER_KEY` with their respective API keys.
+5. Run the project with `poetry run main`
+
