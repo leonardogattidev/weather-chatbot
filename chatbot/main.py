@@ -37,7 +37,6 @@ async def on_button(update, context):
     query = update.callback_query
     user_id = query.from_user.id
     await query.answer()
-    print(f"query.data={query.data}")
     if query.data == "weather":
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
@@ -63,7 +62,6 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if expects_location:
         city_name = update.message.text
         data = get_weather(city_name)
-        print(data)
         await update.message.reply_text(data)
         # await update.message.reply_text(
         #     f"There's {data["weather"][0]["description"]} in {data["name"]}.\n"
