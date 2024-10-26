@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 from .weather import get_weather
+from .counter import increment_count, get_count
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
@@ -65,13 +66,10 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(weather_text)
     elif state == "counting":
         user_id = update.message.from_user.id
-        if user_id in counter:
-            counter[user_id] += 1
-        else:
-            counter[user_id] = 1
+        increment_count(user_id)
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text=f"Count increased to {counter[user_id]}",
+            text=f"Count increased to {get_count(user_id)}",
         )
 
 
