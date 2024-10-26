@@ -27,5 +27,4 @@
 
 ## To do
 
-- Dockerize
 - Deploy (possibly GCP free tier)
