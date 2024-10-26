@@ -3,11 +3,15 @@ import requests
 from openai import OpenAI
 
 
-def get_weather(city_name):
+def get_weather(city_name) -> str:
     api_key = os.getenv("WEATHER_KEY")
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={api_key}&units=metric"
     response = requests.get(url)
     json = response.json()
+    print(json)
+    error = json.get("message")
+    if error and "not found" in error:
+        return f'We couldn\'t find "{city_name}" as a city.'
     return human_readable_weather(json)
 
 
