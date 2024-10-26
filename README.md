@@ -11,7 +11,7 @@
 ### Docker
 
 1. Build image `docker build . -t <image_name>`
-2. Run container with environment variables from `.env` file `docker run --env-file .env`
+2. Run container with environment variables from `.env` file `docker run --env-file .env <image_name>`
 
 ### Native
 
