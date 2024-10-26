@@ -69,9 +69,6 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         city_name = update.message.text
         weather_text = get_weather(city_name)
         await update.message.reply_text(weather_text)
-        await context.bot.send_message(
-            chat_id=chat_id,
-        )
         del context.user_data["state"]
 
 
