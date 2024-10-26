@@ -56,6 +56,7 @@ async def on_button(update, context):
 
 
 async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat_id = update.effective_chat.id
     if "state" not in context.user_data:
         return
 
@@ -65,11 +66,10 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         weather_text = get_weather(city_name)
         await update.message.reply_text(weather_text)
     elif state == "counting":
-        user_id = update.message.from_user.id
-        increment_count(user_id)
+        increment_count(chat_id)
         await context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=f"Count increased to {get_count(user_id)}",
+            chat_id=chat_id,
+            text=f"Count increased to {get_count(chat_id)}",
         )
 
 
