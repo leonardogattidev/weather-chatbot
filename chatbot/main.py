@@ -25,7 +25,7 @@ async def on_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     keyboard = [
         [InlineKeyboardButton("⛅ Check weather", callback_data="weather")],
-        [InlineKeyboardButton("🔢 Count", callback_data="count")],
+        [InlineKeyboardButton("🔢 Show count", callback_data="count")],
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -40,37 +40,39 @@ async def on_button(update, context):
     sets an appropiate `state` depending on the pressed button,
     and displays a status message"""
 
+    chat_id = update.effective_chat.id
+
     query = update.callback_query
     await query.answer()
     if query.data == "weather":
         await context.bot.send_message(
-            chat_id=update.effective_chat.id,
+            chat_id=chat_id,
             text="What city are you in?",
         )
         context.user_data["state"] = "awaiting location"
     elif query.data == "count":
-        context.user_data["state"] = "counting"
         await context.bot.send_message(
-            chat_id=update.effective_chat.id, text="Counting..."
+            chat_id=chat_id,
+            text=f"Count is {get_count(chat_id)}",
         )
 
 
 async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
+    increment_count(chat_id)
+
     if "state" not in context.user_data:
         return
-
     state = context.user_data["state"]
+
     if state == "awaiting location":
         city_name = update.message.text
         weather_text = get_weather(city_name)
         await update.message.reply_text(weather_text)
-    elif state == "counting":
-        increment_count(chat_id)
         await context.bot.send_message(
             chat_id=chat_id,
-            text=f"Count increased to {get_count(chat_id)}",
         )
+        del context.user_data["state"]
 
 
 def main() -> None:
