@@ -8,3 +8,7 @@
 4. Populate the `OPENAI_API_KEY`, `BOT_KEY` and `WEATHER_KEY` values on an `.env` file with their respective API keys.
 5. Run the project with `poetry run main`
 
+
+## Questions
+
+1. Would it be out of scope to get rid of the buttons and use function calling?
