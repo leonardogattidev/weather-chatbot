@@ -20,10 +20,13 @@
 3. Run `poetry install` to install dependencies.
 4. Run the project with `poetry run main`
 
-## Questions
+## Considerations
 
 1. Would it be out of scope to get rid of the buttons and use function calling?
 2. If the bot is in a group, should the counter be unique for each user?
+3. Should the counts be persisted?
+4. The current implementation uses polling to get updates from Telegram's API.
+For an event based approach, it's possible to use webhooks instead, which would reduce unnecessary resource usage.
 
 ## To do
 
