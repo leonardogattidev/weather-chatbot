@@ -95,7 +95,7 @@ def main() -> None:
         app.run_webhook(
             listen="0.0.0.0",
             port=port,
-            secret_token="&)*(@$!#",
+            secret_token="telegram-weather-bot",
             webhook_url=url,
         )
     else:
