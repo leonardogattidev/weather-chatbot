@@ -7,6 +7,7 @@ def get_weather(city_name) -> str:
     api_key = os.getenv("WEATHER_KEY")
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={api_key}&units=metric"
     response = requests.get(url)
+    # TODO: add error handling for request failure (connection exceptions and or HTTP error codes)
     json = response.json()
     print(json)
     error = json.get("message")
