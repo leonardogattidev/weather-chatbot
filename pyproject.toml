@@ -15,6 +15,6 @@ main = "chatbot.main:main"
 [tool.poetry.dependencies]
 python = "^3.12"
 openai = "^1.52.2"
-python-telegram-bot = "^21.6"
+python-telegram-bot = {extras = ["webhooks"], version = "^21.6"}
 python-dotenv = "^1.0.1"
 requests = "^2.32.3"
