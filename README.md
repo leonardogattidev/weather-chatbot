@@ -37,7 +37,7 @@ For an event based approach, it's possible to use webhooks instead,
 which would reduce unnecessary resource usage.~~
 5. Is there anything worth testing?
 The counter is the only functionality with fixed, testable, expected behaviours,
-but it's too basic and simple,
+but it's too basic and simple (add tests for the sake of it?),
 and the rest of the app is mostly interaction with external services,
 is it worth it to mock the Telegram, OpenAI, and weather APIs?
 
