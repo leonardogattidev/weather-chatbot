@@ -3,6 +3,7 @@ name = "chatbot"
 version = "0.1.0"
 description = ""
 authors = ["Leonardo Gatti <leonardogattidev@gmail.com>"]
+readme = "README.md"
 
 [build-system]
 requires = ["poetry-core"]
