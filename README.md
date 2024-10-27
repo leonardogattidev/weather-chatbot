@@ -30,4 +30,4 @@ For an event based approach, it's possible to use webhooks instead, which would 
 
 ## To do
 
-- Deploy (possibly GCP free tier)
+- Deploy (webhook implementation is required, unless deploying on VPS)
