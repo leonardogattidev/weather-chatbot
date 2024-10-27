@@ -74,8 +74,11 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main() -> None:
     load_dotenv()
-
     bot_key = os.getenv("BOT_KEY")
+
+    # TODO: Error handling.
+    # - token could be denied/invalid
+    # - could fail to connect to Telegram's API
     app = ApplicationBuilder().token(bot_key).build()
 
     start_handler = CommandHandler("start", on_start)
