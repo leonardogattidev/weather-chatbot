@@ -1,5 +1,9 @@
 # Weather & Counter Telegram bot
 
+> [!IMPORTANT]
+> Bot is deployed on GCP, it's telegram username is `@weathercounterbot`.
+> Some latency may be experienced (mostly due to cold starts)
+
 ## How to run
 
 > First, ensure the `.env` file has the following entries with their respective API keys.
@@ -25,9 +29,10 @@
 1. Would it be out of scope to get rid of the buttons and use function calling?
 2. If the bot is in a group, should the counter be unique for each user?
 3. Should the counts be persisted?
-4. The current implementation uses polling to get updates from Telegram's API.
-For an event based approach, it's possible to use webhooks instead, which would reduce unnecessary resource usage.
+4. ~~The current implementation uses polling to get updates from Telegram's API.
+For an event based approach, it's possible to use webhooks instead,
+which would reduce unnecessary resource usage.~~
 
 ## To do
 
-- Deploy (webhook implementation is required, unless deploying on VPS)
+- [x] Deploy (webhook implementation is required, unless deploying on VPS)
