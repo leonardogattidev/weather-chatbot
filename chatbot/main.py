@@ -1,5 +1,3 @@
-from logging import error
-
 from dotenv import load_dotenv
 import os
 from .weather import get_weather
@@ -101,7 +99,9 @@ def main() -> None:
             webhook_url=url,
         )
     else:
-        logging.warning("No webhook 'URL' environment variable provided. Falling back to polling.")
+        logging.warning(
+            "No webhook 'URL' environment variable provided. Falling back to polling."
+        )
         app.run_polling()
 
 
