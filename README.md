@@ -35,7 +35,11 @@
 4. ~~The current implementation uses polling to get updates from Telegram's API.
 For an event based approach, it's possible to use webhooks instead,
 which would reduce unnecessary resource usage.~~
-5. Is there anything worth testing? The counter functionality is extremely basic and simple and the rest of the  app is mostly interaction with external services, is it worth it to mock the Telegram, OpenAI, and weather APIs?
+5. Is there anything worth testing?
+The counter is the only functionality with fixed, testable, expected behaviours,
+but it's too basic and simple,
+and the rest of the app is mostly interaction with external services,
+is it worth it to mock the Telegram, OpenAI, and weather APIs?
 
 ## To do
 
