@@ -1,3 +1,5 @@
+from logging import error
+
 from dotenv import load_dotenv
 import os
 from .weather import get_weather
@@ -89,7 +91,18 @@ def main() -> None:
     app.add_handler(button_handler)
     app.add_handler(message_handler)
 
-    app.run_polling()
+    port = int(os.getenv("PORT", "8443"))
+
+    if url := os.getenv("URL"):
+        app.run_webhook(
+            listen="0.0.0.0",
+            port=port,
+            secret_token="&)*(@$!#",
+            webhook_url=url,
+        )
+    else:
+        logging.warning("No webhook 'URL' environment variable provided. Falling back to polling.")
+        app.run_polling()
 
 
 if __name__ == "__main__":
