@@ -86,6 +86,10 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         del context.user_data["state"]
 
 
+def on_error(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    logging.error(context.error)
+
+
 def main() -> None:
     load_dotenv()
     if (bot_key := os.getenv("BOT_KEY")) is None:
@@ -101,6 +105,7 @@ def main() -> None:
     app.add_handler(start_handler)
     app.add_handler(button_handler)
     app.add_handler(message_handler)
+    app.add_error_handler(on_error)
 
     port = int(os.getenv("PORT", "8443"))
 
