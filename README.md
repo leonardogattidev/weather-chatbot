@@ -39,7 +39,6 @@
    - The counter is the only functionality with fixed, testable, expected behaviours,
      but it's too basic and simple (add tests for the sake of it?).
    - Testing with `python-telegram-bot` [should be possible](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Writing-Tests)
-     Is it worth it to mock the OpenAI, and weather APIs?
 
 ## To do
 
