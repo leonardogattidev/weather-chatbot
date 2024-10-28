@@ -73,8 +73,7 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     chat_id = update.effective_chat.id
     increment_count(chat_id)
 
-    assert context.user_data, "user_data shouldn't be None"
-    if "state" not in context.user_data:
+    if context.user_data is None or "state" not in context.user_data:
         return
     state = context.user_data["state"]
 
