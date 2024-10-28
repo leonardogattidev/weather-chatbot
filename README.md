@@ -1,12 +1,12 @@
 # Weather & Counter Telegram bot
 
-> [!IMPORTANT]
 > Bot is deployed on GCP, it's telegram username is `@weathercounterbot`.
 > Some latency may be experienced (mostly due to cold starts)
 
 ## How to run
 
-> First, ensure the `.env` file has the following entries with their respective API keys.
+> [!IMPORTANT]
+> Ensure the `.env` file has the following entries with their respective API keys.
 >
 > - `OPENAI_API_KEY`
 > - `BOT_KEY`
