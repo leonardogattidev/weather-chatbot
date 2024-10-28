@@ -12,13 +12,16 @@
 > - `BOT_KEY`
 > - `WEATHER_KEY`
 
+> [!NOTE]
+> To use webhooks, you can set the `PORT` and `URL` environment variables.
+> PORT needs to be one of 443, 80, 88 or 8443 (only ports supported by Telegram's API).
+> URL is the publicly accessible URL of the device (`http(s)://<domain_or_ip>/`).
+
 ### Docker
 
 1. Build image `docker build . -t <image_name>`
-2. Run container with environment variables from `.env` file `docker run --env-file .env <image_name>`
-
-> [!NOTE]
-> To use webhooks, you can set the `PORT` and `URL` environment variables, the port needs to be one of 443, 80, 88 or 8443 (only ports supported by Telegram's API), and the URL is the publicly accessible URL of the device (`http(s)://<domain_or_ip>/`)
+2. Run container with environment variables from `.env` file
+   `docker run --env-file .env <image_name>`
 
 ### Native
 
