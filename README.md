@@ -44,6 +44,12 @@
      but it's too basic and simple (add tests for the sake of it?).
    - Testing with `python-telegram-bot` [should be possible](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Writing-Tests)
 
+## Reference
+
+- [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Architecture)
+- [OpenAI](https://platform.openai.com/docs/concepts)
+- [OpenWeatherMap](https://openweathermap.org/current)
+
 ## To do
 
 - [x] Deploy (webhook implementation is required, unless deploying on VPS)
