@@ -53,3 +53,4 @@
 ## To do
 
 - [x] Deploy (webhook implementation is required, unless deploying on VPS)
+- [ ] Use PTB built-in data storage functionality (user_data, chat_data) for counter
