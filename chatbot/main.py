@@ -86,8 +86,10 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         del context.user_data["state"]
 
 
-def on_error(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def on_error(update: object, context: ContextTypes.DEFAULT_TYPE):
     logging.error(context.error)
+    if update is not Update:
+        pass
 
 
 def main() -> None:
