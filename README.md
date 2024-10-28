@@ -29,7 +29,8 @@
 
 ## Considerations
 
-1. Would it be out of scope to get rid of the buttons and use function calling? Wouldn't that result in too many chat completions?
+1. Would it be out of scope to get rid of the buttons and use function calling?
+   Wouldn't that result in too many chat completions?
 2. If the bot is in a group, should the counter be unique for each user?
 3. Should the counts be persisted?
 4. ~~The current implementation uses polling to get updates from Telegram's API.
