@@ -7,10 +7,10 @@
 ## How to run
 
 > First, ensure the `.env` file has the following entries with their respective API keys.
+>
 > - `OPENAI_API_KEY`
 > - `BOT_KEY`
 > - `WEATHER_KEY`
-
 
 ### Docker
 
@@ -33,13 +33,13 @@
 2. If the bot is in a group, should the counter be unique for each user?
 3. Should the counts be persisted?
 4. ~~The current implementation uses polling to get updates from Telegram's API.
-For an event based approach, it's possible to use webhooks instead,
-which would reduce unnecessary resource usage.~~
-5. Is there anything worth testing?
-The counter is the only functionality with fixed, testable, expected behaviours,
-but it's too basic and simple (add tests for the sake of it?),
-and the rest of the app is mostly interaction with external services,
-is it worth it to mock the Telegram, OpenAI, and weather APIs?
+   For an event based approach, it's possible to use webhooks instead,
+   which would reduce unnecessary resource usage.~~
+5. What's worth testing?
+   - The counter is the only functionality with fixed, testable, expected behaviours,
+     but it's too basic and simple (add tests for the sake of it?).
+   - Testing with `python-telegram-bot` [should be possible](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Writing-Tests)
+     Is it worth it to mock the OpenAI, and weather APIs?
 
 ## To do
 
