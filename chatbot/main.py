@@ -57,7 +57,8 @@ async def on_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             chat_id=chat_id,
             text="What city are you in?",
         )
-        assert context.user_data, "user_data shouldn't be None"
+        if context.user_data is None:
+            return
         context.user_data["state"] = "awaiting location"
     elif query.data == "count":
         await context.bot.send_message(
