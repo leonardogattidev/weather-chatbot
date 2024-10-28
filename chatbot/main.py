@@ -78,9 +78,6 @@ def main() -> None:
         logging.error("No BOT_KEY environment variable provided. Terminating...")
         return
 
-    # TODO: Error handling.
-    # - token could be denied/invalid
-    # - could fail to connect to Telegram's API
     app = ApplicationBuilder().token(bot_key).build()
 
     start_handler = CommandHandler("start", on_start)
@@ -104,7 +101,14 @@ def main() -> None:
         logging.warning(
             "No webhook 'URL' environment variable provided. Falling back to polling."
         )
-        app.run_polling()
+        try:
+            app.run_polling()
+        except Exception as e:
+            logging.error("Failed to poll Telegram's API", exc_info=True)
+            logging.warning(
+                "Check the validity of your BOT_KEY, otherwise, Telegram's API could be failing."
+            )
+            return
 
 
 if __name__ == "__main__":
