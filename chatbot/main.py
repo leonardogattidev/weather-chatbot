@@ -74,7 +74,9 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main() -> None:
     load_dotenv()
-    bot_key = os.getenv("BOT_KEY")
+    if (bot_key := os.getenv("BOT_KEY")) is None:
+        logging.error("No BOT_KEY environment variable provided. Terminating...")
+        return
 
     # TODO: Error handling.
     # - token could be denied/invalid
