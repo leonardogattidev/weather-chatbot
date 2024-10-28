@@ -15,7 +15,7 @@ def get_weather(city_name) -> str:
     return human_readable_weather(json)
 
 
-def human_readable_weather(data):
+def human_readable_weather(data: str) -> str:
     # TODO: avoid instantiating a new openai client for each call
     # (connection/client pooling? though its a single client)
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -28,4 +28,6 @@ def human_readable_weather(data):
             }
         ],
     )
-    return completion.choices[0].message.content
+    response = completion.choices[0].message.content
+    assert response, "Non-null response was expected from OpenAI"
+    return response

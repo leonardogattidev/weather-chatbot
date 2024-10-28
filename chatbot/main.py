@@ -23,32 +23,41 @@ logging.basicConfig(
 async def on_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """on `/start`, it displays buttons for both weather and counter features."""
 
-    keyboard = [
-        [InlineKeyboardButton("⛅ Check weather", callback_data="weather")],
-        [InlineKeyboardButton("🔢 Show count", callback_data="count")],
-    ]
+    button_markup = InlineKeyboardMarkup(
+        [
+            [InlineKeyboardButton("⛅ Check weather", callback_data="weather")],
+            [InlineKeyboardButton("🔢 Show count", callback_data="count")],
+        ]
+    )
 
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text("😁 Hi! Need anything?", reply_markup=reply_markup)
+    assert (
+        update.effective_chat is not None
+    ), "expected a chat to be associated with the update"
+    chat_id = update.effective_chat.id
+    await context.bot.send_message(
+        chat_id=chat_id, text="😁 Hi! Need anything?", reply_markup=button_markup
+    )
 
 
-counter = {}
-
-
-async def on_button(update, context):
+async def on_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Reacts to button presses,
     sets an appropiate `state` depending on the pressed button,
     and displays a status message"""
 
+    assert (
+        update.effective_chat is not None
+    ), "expected a chat to be associated with the update"
     chat_id = update.effective_chat.id
 
     query = update.callback_query
+    assert query is not None, ""
     await query.answer()
     if query.data == "weather":
         await context.bot.send_message(
             chat_id=chat_id,
             text="What city are you in?",
         )
+        assert context.user_data, "user_data shouldn't be None"
         context.user_data["state"] = "awaiting location"
     elif query.data == "count":
         await context.bot.send_message(
@@ -57,15 +66,20 @@ async def on_button(update, context):
         )
 
 
-async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    assert (
+        update.effective_chat is not None
+    ), "expected a chat to be associated with the update"
     chat_id = update.effective_chat.id
     increment_count(chat_id)
 
+    assert context.user_data, "user_data shouldn't be None"
     if "state" not in context.user_data:
         return
     state = context.user_data["state"]
 
     if state == "awaiting location":
+        assert update.message, "`update.message` shouldn't None"
         city_name = update.message.text
         weather_text = get_weather(city_name)
         await update.message.reply_text(weather_text)
@@ -103,7 +117,7 @@ def main() -> None:
         )
         try:
             app.run_polling()
-        except Exception as e:
+        except Exception:
             logging.error("Failed to poll Telegram's API", exc_info=True)
             logging.warning(
                 "Check the validity of your BOT_KEY, otherwise, Telegram's API could be failing."
