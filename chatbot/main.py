@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import os
 from .weather import get_weather
-from .counter import increment_count, get_count
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
@@ -49,30 +48,28 @@ async def on_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     ), "expected a chat to be associated with the update"
     chat_id = update.effective_chat.id
 
+    assert context.user_data is not None, "`user_data` shouldn't be None"
+
     query = update.callback_query
-    assert query is not None, ""
+    assert query is not None
     await query.answer()
     if query.data == "weather":
         await context.bot.send_message(
             chat_id=chat_id,
             text="What city are you in?",
         )
-        if context.user_data is None:
-            return
         context.user_data["state"] = "awaiting location"
     elif query.data == "count":
+        count = context.user_data.get("message_count", 0)
         await context.bot.send_message(
             chat_id=chat_id,
-            text=f"Count is {get_count(chat_id)}",
+            text=f"Count is {count}",
         )
 
 
 async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    assert (
-        update.effective_chat is not None
-    ), "expected a chat to be associated with the update"
-    chat_id = update.effective_chat.id
-    increment_count(chat_id)
+    assert context.user_data is not None, "`user_data` shouldn't be None"
+    context.user_data["message_count"] = context.user_data.get("message_count", 0) + 1
 
     if context.user_data is None or "state" not in context.user_data:
         return
