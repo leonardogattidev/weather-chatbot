@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 
+from openai import OpenAI
 from . import weather
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
@@ -107,6 +108,8 @@ def main() -> None:
     app.add_handler(button_handler)
     app.add_handler(message_handler)
     app.add_error_handler(on_error)
+
+    weather.openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     port = int(os.getenv("PORT", "8443"))
 

@@ -19,11 +19,13 @@ def get_weather(city_name: str) -> str:
         return "Something went wrong while fetching weather data."
 
 
+openai_client: OpenAI
+
+
 def human_readable_weather(data: str) -> str:
-    # TODO: avoid instantiating a new openai client for each call
-    # (connection/client pooling? though its a single client)
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-    completion = client.chat.completions.create(
+    global openai_client
+    assert openai_client, "`openai_client` shouldn't be None"
+    completion = openai_client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
             {
