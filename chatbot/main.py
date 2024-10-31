@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
-from .weather import get_weather
+
+from . import weather
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
@@ -78,7 +79,8 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     if state == "awaiting location":
         assert update.message, "`update.message` shouldn't None"
         city_name = update.message.text
-        weather_text = get_weather(city_name)
+        assert city_name, "city_name shouldn't be None"
+        weather_text = weather.get_weather(city_name)
         await update.message.reply_text(weather_text)
         del context.user_data["state"]
 
