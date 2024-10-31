@@ -5,5 +5,6 @@ in
         packages = with pkgs; [
             python3
             poetry
+            chromium
         ];
     }
