@@ -1,3 +1,4 @@
+import logging
 import os
 import httpx
 from openai import OpenAI
@@ -6,13 +7,16 @@ from openai import OpenAI
 def get_weather(city_name) -> str:
     api_key = os.getenv("WEATHER_KEY")
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={api_key}&units=metric"
-    response = httpx.get(url)
-    # TODO: add error handling for request failure (connection exceptions and or HTTP error codes)
-    json = response.json()
-    error = json.get("message")
-    if error and "not found" in error:
-        return f'We couldn\'t find "{city_name}" as a city.'
-    return human_readable_weather(json)
+    try:
+        response = httpx.get(url)
+        json = response.json()
+        error = json.get("message")
+        if error and "not found" in error:
+            return f'We couldn\'t find "{city_name}" as a city.'
+        return human_readable_weather(json)
+    except httpx.RequestError as e:
+        logging.error(f"Error while requesting {e.request.url}", exc_info=True)
+        return "Something went wrong while fetching weather data."
 
 
 def human_readable_weather(data: str) -> str:
