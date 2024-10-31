@@ -8,6 +8,8 @@ def get_weather(city_name: str) -> str:
     api_key = os.getenv("WEATHER_KEY")
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={api_key}&units=metric"
     try:
+        # TODO: investigate using `httpx.Client` instead
+        # https://www.python-httpx.org/advanced/clients/
         response = httpx.get(url)
         json = response.json()
         error = json.get("message")
