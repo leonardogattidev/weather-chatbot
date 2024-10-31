@@ -49,8 +49,3 @@
 - [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot/wiki/Architecture)
 - [OpenAI](https://platform.openai.com/docs/concepts)
 - [OpenWeatherMap](https://openweathermap.org/current)
-
-## To do
-
-- [x] Deploy (webhook implementation is required, unless deploying on VPS)
-- [x] Use PTB built-in data storage functionality (user_data, chat_data) for counter
